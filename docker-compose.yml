@@ -34,7 +34,7 @@ services:
     depends_on:
       - movieapp-db
     ports:
-      - "8080:8080"
+      - "9090:9090"
     networks:
       - movieapp-net
 
