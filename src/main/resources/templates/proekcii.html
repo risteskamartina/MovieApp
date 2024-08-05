@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/path/to/styles.css">
+    <title>Film Projections</title>
+</head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        background-image: url('/static/img/pozadina5.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    .projections-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .projection-card {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        padding: 15px;
+        width: 300px;
+        background-color: #fff;
+    }
+
+    .projection-card p {
+        margin: 5px 0;
+        color: #555;
+    }
+
+    .projection-card h3 {
+        margin-bottom: 10px;
+        color: #007BFF;
+    }
+
+</style>
+
+<body>
+<div class="container">
+    <ul >Actors who play in the selected movie: <li th:each="glumec:${glumci}" th:text="${glumec.imeGlumec + ' ' + glumec.prezimeGlumec}+ ' '"></li></ul>
+    <h1>Film projection for <span th:text="${film.naslov}"></span></h1>
+    <div class="projections-container">
+        <th:block th:each="projection : ${proekcii}">
+            <div class="projection-card">
+                <p><strong>Date:</strong> <span th:text="${projection.datum}"></span></p>
+                <p><strong>Start time:</strong> <span th:text="${projection.vreme_pocetok}"></span></p>
+                <p><strong>Projection type:</strong> <span th:text="${projection.tip_proekcija}"></span></p>
+                <p><strong>Price:</strong> <span th:text="${projection.cena}"></span> MKD</p>
+                <p><strong>Cinema:</strong> <span th:text="${projection.kino_ime}"></span></p>
+                <p><strong>Hall number:</strong> <span th:text="${projection.broj_na_sala}"></span></p>
+                <form method="post" th:action="@{'/reservation/{id_proekcija}' (id_proekcija=${projection.idProekcija})}">
+                    <button type="submit" class="delete-item" >MAKE YOUR RESERVATION</button>
+                </form>
+            </div>
+        </th:block>
+    </div>
+    <a href="/movies" style="text-decoration: none; color: #007BFF; display: block; text-align: center;">Back to Home</a>
+
+</div>
+</body>
+</html>
