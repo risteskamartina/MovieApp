@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  movieapp-db:
+    image: postgres:13
+    restart: always
+    container_name: "movieapp-db"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: finki123.
+      POSTGRES_DB: Kinoo
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./db-postgres/movieapp-data:/var/lib/postgresql/data
+      - ./db-postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - movieapp-net
+
+  movieapp:
+    image: "movieapp-image:latest"
+    container_name: movieapp
+    environment:
+      SPRING_APPLICATION_JSON: '{
+             "spring.datasource.url"  : "jdbc:postgresql://movieapp-db:5432/Kinoo",
+             "spring.datasource.username" : "postgres",
+             "spring.datasource.password" : "finki123.",
+             "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
+             "spring.jpa.hibernate.ddl-auto" : "validate",
+             "spring.datasource.hikari.connectionTimeout" : "20000",
+             "spring.datasource.hikari.maximumPoolSize" : "5",
+             "spring.jpa.show-sql" : "true"
+           }'
+    depends_on:
+      - movieapp-db
+    ports:
+      - "8080:8080"
+    networks:
+      - movieapp-net
+
+networks:
+  movieapp-net:
+    driver: bridge
+
+volumes:
+  movieapp-data:
