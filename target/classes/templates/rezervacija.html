@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Nova Rezervacija</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+      background-image: url('../static/img/pozadina5.jpg');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      max-width: 600px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Naslov: <span th:text="${film.naslov}"></span></h2>
+<h1>Vnesi Nova Rezervacija</h1>
+<form th:action="@{/reservation}" method="post">
+  <label for="proekcija">Proekcija:</label>
+  <select name="proekcijaId" id="proekcija">
+    <option th:each="proek:${proekcija}" th:text="${proek.datum + ' ' + proek.pocetok + ' Cena: ' + proek.cena}"
+            th:value="${proek.id_proekcija}">
+    </option>
+  </select>
+
+  <label for="kinoSala">Kino Sala:</label>
+  <select name="kinoSalaId" id="kinoSala">
+    <option th:each="sala:${kinoSali}" th:text="${sala.kino.ime}" th:value="${sala.id_kinosala}"></option>
+  </select>
+
+  <label for="sediste">Sediste:</label>
+  <select type="text" name="brojSediste" id="sediste">
+    <option th:each="sediste:${sedista}" th:text="${sediste.brojsediste}" th:value="${sediste.brojsediste}"></option>
+  </select>
+
+  <label for="klient">Klient:</label>
+  <input type="text" id="klient" name="username" required>
+
+  <button type="submit">Potvrdi Rezervacija</button>
+</form>
+</div>
+</body>
+</html>

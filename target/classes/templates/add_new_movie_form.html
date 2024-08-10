@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f4;
+      background-image: url('/static/img/pozadina5.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .form-container {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+    }
+
+    .form-container label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="number"],
+    .form-container select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-container input[type="submit"] {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .form-container input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  <title>Add New Film</title>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Add New Film</h1>
+
+  <div class="form-container">
+    <form th:action="@{/movies/add}"  th:method="post">
+      <label for="idFilm">ID:</label>
+      <input type="number" id="idFilm" name="idFilm" required>
+
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="naslov" required>
+
+      <label for="rating">Rating:</label>
+      <input type="text" id="rating" name="rejting" required>
+
+      <label for="duration">Duration:</label>
+      <input type="text" id="duration" name="vremetraenje" required>
+
+      <label for="genre">Genre:</label>
+      <input type="text" id="genre" name="zanr" required>
+
+      <label for="language">Language:</label>
+      <input type="text" id="language" name="jazik" required>
+
+      <label for="imageLink">Image Link:</label>
+      <input type="text" id="imageLink" name="slika" required>
+
+      <input type="submit" value="Add Film">
+    </form>
+  </div>
+
+  <a href="/movies" style="text-decoration: none; color: #007BFF; display: block; text-align: center;">Back to Home</a>
+</div>
+
+</body>
+
+</html>

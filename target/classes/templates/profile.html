@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:java8="http://www.thymeleaf.org/thymeleaf-extras-java8time">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f4;
+      background-image: url('../static/img/pozadina5.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .profile-info {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+    }
+
+    .profile-info label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .profile-info p {
+      margin: 0;
+      padding: 5px 0;
+      color: #555;
+    }
+
+    .rentals {
+      margin-top: 20px;
+    }
+
+    .rentals h2 {
+      color: #333;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    .rental-item {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .rental-item p {
+      margin: 8px 0;
+    }
+
+    .rental-item strong {
+      color: #333;
+    }
+  </style>
+  <title>Profile Page</title>
+</head>
+<body>
+
+<div class="container">
+  <h1>Your Profile</h1>
+
+  <div class="profile-info" >
+    <label for="username">Username:</label>
+    <p id=username th:text="${klient.username}"></p>
+
+    <label for="name">Name:</label>
+    <p id=name th:text="${klient.ime}"></p>
+
+    <label for="email">Email:</label>
+    <p id="email" th:text="${klient.email}"></p>
+
+    <label for="phoneNumber">Phone Number:</label>
+    <p id="phoneNumber" th:text="${klient.telefon}"></p>
+  </div>
+
+  <div class="rentals">
+    <h2>Your reservations</h2>
+    <form th:each="rent : ${rents}">
+      <div class="rental-item">
+        <p><strong>Movie name:</strong> <span th:text="${rent.naslov}"></span></p>
+        <p><strong>Date:</strong> <span th:text="${rent.datum}"></span></p>
+        <p><strong>Start time:</strong> <span th:text="${rent.pocetok}"></span></p>
+        <p><strong>Total amount:</strong> <span th:text="${rent.cena}"></span></p>
+      </div>
+    </form>
+  </div>
+  <a href="/movies" style="text-decoration: none; color: #007BFF; display: block; text-align: center;">Back to Home</a>
+
+</div>
+
+</body>
+</html>

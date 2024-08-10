@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <title>Sign in page</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="container">
+  <div class="login-container">
+    <div class="form">
+      <h1>SIGN UP</h1>
+      <hr>
+      <h3 class="logo">
+        <span class="highlight">KinoMar</span>MovieTickets
+      </h3>
+
+      <form method="POST" action="/register">
+        <label for="ime">Име:</label>
+        <input type="text" id="ime" name="ime"><br/>
+        <label for="prezime">Презиме:</label>
+        <input type="text" id="prezime" name="prezime"><br/>
+        <label for="korisnickoime">Корисничко име:</label>
+        <input type="text" id="korisnickoime" name="username"><br/>
+        <label for="password">Лозинка:</label>
+        <input type="password" id="password" name="password"><br/>
+        <label for="email">Е-пошта:</label>
+        <input type="text" id="email" name="email"><br/>
+        <label for="telefon">Телефонски број:</label>
+        <input type="text" id="telefon" name="telefon"><br/>
+
+        <div th:if="${hasError}" class="error">
+          <div th:text="${error}"></div>
+        </div>
+
+        <button id="signup-button" type="submit">Sing up</button>
+      </form>
+
+      <p>Have an account? <a href="/login">Login here</a></p>
+    </div>
+  </div>
+
+  <div class="image"></div>
+</div>
+</body>
+</html>
