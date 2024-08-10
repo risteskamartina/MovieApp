@@ -10,10 +10,10 @@ services:
       POSTGRES_PASSWORD: finki123.
       POSTGRES_DB: Kinoo
     ports:
-      - "5433:5432"
+      - "5434:5432"
     volumes:
-      - ./db-postgres/movieapp-data:/var/lib/postgresql/data
-      - ./db-postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db-postgres/postgres-data:/var/lib/postgresql/data
+      - ./db-postgres/create.sql:/docker-entrypoint-initdb.d/create.sql
     networks:
       - movieapp-net
 
