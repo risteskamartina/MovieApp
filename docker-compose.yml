@@ -33,7 +33,6 @@ services:
            }'
     depends_on:
       - movieapp-db
-    entrypoint: ["dockerize", "-wait", "tcp://movieapp-db:5432", "-timeout", "30s", "java", "-jar", "/app.jar"]
     ports:
       - "9090:9090"
     networks:
