@@ -46,7 +46,3 @@ jobs:
       - name: Run Docker container
         run: |
           docker run -d -p 8000:8000 ${{ secrets.DOCKER_USERNAME }}/movieapp-image:latest
-        env:
-          DOCKER_HOST: tcp://docker:2375
-          DOCKER_TLS_VERIFY: 1
-          DOCKER_CERT_PATH: /certs/client
