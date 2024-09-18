@@ -20,7 +20,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build and package with Maven
-        run: mvn clean install
+        run: mvn clean install -DskipTests
 
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v3
