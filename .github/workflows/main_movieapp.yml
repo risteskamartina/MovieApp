@@ -45,7 +45,7 @@ jobs:
 
       - name: Run Docker container
         run: |
-          docker run -d -p 8000:8000 ${{ secrets.DOCKER_USERNAME }}/movieapp-image:latest
+          docker run -d -p 9090:9090 ${{ secrets.DOCKER_USERNAME }}/movieapp-image:latest
 
       - name: Display Docker logs on failure
         if: failure()
