@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: movieapp-ingress
+  namespace: movieapp
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - host: movieapp.com
+    http:
+      paths:
+      - path: /movies
+        pathType: Prefix
+        backend:
+          service:
+            name: movieapp-service
+            port:
+              number: 9090
