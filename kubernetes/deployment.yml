@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: movieapp-config
+  namespace: movieapp
+data:
+  POSTGRES_DB: "Kinoo"
+  POSTGRES_URL: "postgres-service.movieapp.svc.cluster.local"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: movieapp-secret
+  namespace: movieapp
+type: Opaque
+data:
+  POSTGRES_USER: cG9zdGdyZXM=  
+  POSTGRES_PASSWORD: Zmlua2kxMjMu 
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movieapp-deployment
+  namespace: movieapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: movieapp-kiii
+  template:
+    metadata:
+      labels:
+        app: movieapp-kiii
+    spec:
+      containers:
+        - name: movieapp-kiii
+          image: martinaristeska/movieapp-image:latest
+          ports:
+            - containerPort: 9090  
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: movieapp-config
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: movieapp-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: movieapp-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: movieapp-config
+                  key: POSTGRES_URL
+            - name: DATABASE_URL
+              value: "jdbc:postgresql://$(POSTGRES_URL)/$(POSTGRES_DB)"
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 9090
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 9090
+            initialDelaySeconds: 15
+            periodSeconds: 20
