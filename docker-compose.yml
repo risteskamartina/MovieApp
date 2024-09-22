@@ -39,7 +39,7 @@ services:
       - movieapp-net
 
 networks:
-  movieapp-net:
+  movieapp-net: 
     driver: bridge
 
 volumes:
